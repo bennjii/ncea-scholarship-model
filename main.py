@@ -1,3 +1,7 @@
+'''
+        This file is for local (New Zealand Data)
+'''
+
 import functools
 
 import numpy as np

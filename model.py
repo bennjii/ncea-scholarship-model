@@ -15,6 +15,9 @@ import tensorflow as tf
 TRAIN_DATA_URL = "./data/train/kings_county/data.csv"
 TEST_DATA_URL = "./data/test/auckland/data.csv"
 
+def difference(a, b):
+        return round((a - b) / ((a + b) / 2) * 100, 2)
+
 # read and import the data
 df = pd.read_csv(TRAIN_DATA_URL, thousands=',')
 
@@ -30,6 +33,8 @@ y = train['price']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 3)
 scaler = MinMaxScaler()
 
+X_save = X_test
+
 X_train = scaler.fit_transform(X_train)
 X_test  = scaler.transform(X_test)
 
@@ -41,7 +46,19 @@ model = tf.keras.models.load_model('hpp.h5')
 predictions = model.predict(X_test)
 values = y_test.values
 
-for i in range(0, np.size(predictions)):
+# output
+for i in range(0, 1):
+        print('\n')
+        print('\n')
+
+        print('----[ PREDICTORY ]----')
+        print('\n')
+
         print('actual value: ', values[i])
         print('prediction:   ', predictions[i][0])
+        print('\n')
+        print('difference:   ', difference(values[i], predictions[i][0]), "%")
+
+        print('\n')
+        print(X_save.iloc[[i]])
         print('\n')

@@ -47,11 +47,11 @@ predictions = model.predict(X_test)
 values = y_test.values
 
 # output
-for i in range(0, 1):
+for i in range(6, 7):
         print('\n')
         print('\n')
 
-        print('----[ PREDICTORY ]----')
+        print('----[ PREDICTION ]----')
         print('\n')
 
         print('actual value: ', values[i])

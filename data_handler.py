@@ -33,28 +33,47 @@ def findInAdressBook(sub, dub):
             #print(content[13].upper(), dub, "---------------------------------")
             if content[13].upper() == dub:
                 if content[12].upper() == sub:
-                    print("FOUND! LINE", line_num + 1, " : ", content[16], content[17]) # , "\n", content
+                    print("SEARCH RESULT FOUND! LINE", line_num + 1, " : ", content[16], content[17]) # , "\n", content
                     return content
 
 def searchArray():
-    with open("./data/test/remuera/sales.csv", "r") as f:
+    with open("./data/test/remuera/sales.csv", "r") as f, \
+        open('./data/test/remuera/output_1.csv', 'w', newline='') as write_obj:
+
         reader_ = csv.reader(f)
+        writer_ = csv.writer(write_obj)
+
+        writer_.writerow(["address","owners","suburb","town","ta_name","property_type","sale_date","capital_value","gross_sale_price","bedrooms_min","land_area","floor_area","building_age","listing_date","provisional_sale_price","provisional_sale_date","","","long","lat"])
+
         enum = 0
+        counter = 0
 
         for line_num, content in enumerate(reader_, start=1):
-            enum = enum + 1
-
-            if(enum > 2):
+            if(enum > 0):
+                enum += 1
                 subdub = content[0].split(" ", 1)
 
                 sub = subdub[0].upper()
                 dub = subdub[1].upper()
-
+                
+                print("SEARCHING FOR ", sub, dub)
                 result = findInAdressBook(sub, dub)
 
                 if(result != None):
                     print(sub, dub)
-                    print(findInAdressBook(sub, dub))
+                    print(result)
                     print("\n")
+                    counter += 1
+
+                    content.append(result[16])
+                    content.append(result[17])
+                    writer_.writerow(content)
+                else:
+                    print("FAILED, NO CORROSPRONDING MATCH WAS FOUND IN THE ADRESS BOOK")
+            else:
+                enum += 1
+
+        print('TOTAL SEARCHES FOUND: ', counter)
+        print('TOTAL SEARCHES MADE: ', enum)
 
 searchArray()

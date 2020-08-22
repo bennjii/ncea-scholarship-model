@@ -9,7 +9,16 @@ import csv
 
 
 # reading csv file from url  
-df = pd.read_csv("./data/test/remuera/adresses.csv") 
+FILE_LOCATION = "./data/test/specific/adresses.csv"
+#FILE_LOCATION = "./data/test/remuera/adresses.csv"
+
+SALES_LOCATION = './data/test/specific/data_.csv'
+#SALES_LOCATION = "./data/test/remuera/sales.csv"
+
+OUTPUT_LOCATION = './data/test/specific/output_1.csv'
+#OUTPUT_LOCATION = './data/test/remuera/output_1.csv'
+
+df = pd.read_csv(FILE_LOCATION) 
    
 # dropping null value columns to avoid errors 
 df.dropna(inplace = True) 
@@ -26,7 +35,7 @@ save_line = 0
 # DUB = NUMBER
 
 def findInAdressBook(sub, dub):
-    with open("./data/test/remuera/adresses.csv", "r") as f:
+    with open(FILE_LOCATION, "r") as f:
         reader = csv.reader(f)
 
         for line_num, content in enumerate(reader):
@@ -37,13 +46,14 @@ def findInAdressBook(sub, dub):
                     return content
 
 def searchArray():
-    with open("./data/test/remuera/sales.csv", "r") as f, \
-        open('./data/test/remuera/output_1.csv', 'w', newline='') as write_obj:
+    with open(SALES_LOCATION, "r") as f, \
+        open(OUTPUT_LOCATION, 'w', newline='') as write_obj:
 
         reader_ = csv.reader(f)
         writer_ = csv.writer(write_obj)
 
-        writer_.writerow(["address","owners","suburb","town","ta_name","property_type","sale_date","capital_value","gross_sale_price","bedrooms_min","land_area","floor_area","building_age","listing_date","provisional_sale_price","provisional_sale_date","","","long","lat"])
+        #writer_.writerow(["address","owners","suburb","town","ta_name","property_type","sale_date","capital_value","gross_sale_price","bedrooms_min","land_area","floor_area","building_age","listing_date","provisional_sale_price","provisional_sale_date","","","long","lat"])
+        writer_.writerow(["Job Code", "Valuation Date", "Existing/New", "Lot", "Street No.", "Street Name", "Locality", "Type", "Beds", "Land Area", "Land Value $", "Living Area", "New Rate $", "Outdoor Areas", "OIs", "OBs", "Chattels $", "Market Value $", "Rent", "Comments", "long","lat"])
 
         enum = 0
         counter = 0
@@ -51,10 +61,13 @@ def searchArray():
         for line_num, content in enumerate(reader_, start=1):
             if(enum > 0):
                 enum += 1
-                subdub = content[0].split(" ", 1)
 
-                sub = subdub[0].upper()
-                dub = subdub[1].upper()
+                #subdub = content[0].split(" ", 1)
+
+                sub = content[4].upper()
+                dub = content[5].upper()
+
+                print(content)
                 
                 print("SEARCHING FOR ", sub, dub)
                 result = findInAdressBook(sub, dub)
@@ -67,6 +80,10 @@ def searchArray():
 
                     content.append(result[16])
                     content.append(result[17])
+
+                    print("$", content[8])
+
+                    #if(content[8]):
                     writer_.writerow(content)
                 else:
                     print("FAILED, NO CORROSPRONDING MATCH WAS FOUND IN THE ADRESS BOOK")

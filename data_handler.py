@@ -53,7 +53,7 @@ def searchArray():
         writer_ = csv.writer(write_obj)
 
         #writer_.writerow(["address","owners","suburb","town","ta_name","property_type","sale_date","capital_value","gross_sale_price","bedrooms_min","land_area","floor_area","building_age","listing_date","provisional_sale_price","provisional_sale_date","","","long","lat"])
-        writer_.writerow(["Job Code", "Valuation Date", "Existing/New", "Lot", "Street No.", "Street Name", "Locality", "Type", "Beds", "Land Area", "Land Value $", "Living Area", "New Rate $", "Outdoor Areas", "OIs", "OBs", "Chattels $", "Market Value $", "Rent", "Comments", "long","lat"])
+        writer_.writerow(["Job Code", "Valuation Date", "Existing/New", "Lot", "Street No.", "Street Name", "Locality", "Type", "Beds", "Land Area", "Land Value $", "Living Area", "New Rate $", "Outdoor Areas", "OIs", "OBs", "Chattels $", "Market Value $", "Rent", "Comments", "grade", "garage", "long","lat"])
 
         enum = 0
         counter = 0
@@ -77,6 +77,17 @@ def searchArray():
                     print(result)
                     print("\n")
                     counter += 1
+
+                    if content[7] == 'Freestanding Townhouse' or content[7] == 'Single House':
+                        content.append(1)
+                    else:
+                        content.append(2)
+
+                    if content[13] != '-':
+                        content.append(1)
+                    else:
+                        content.append(2)
+                    
 
                     content.append(result[16])
                     content.append(result[17])

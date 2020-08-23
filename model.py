@@ -59,19 +59,40 @@ values = y_test.values
 
 #print(predictions)
 
+total = 0
+itterations = 0
+
+smallest = float('inf')
+largest = 0
+
 # output
-for i in range(4, 5):
+for i in range(0, 17):
         print('\n')
         print('\n')
 
         print('----[ PREDICTION ]----')
         print('\n')
 
+        difference_ = difference(values[i], predictions[i][0])
+
         print('actual value: ', values[i])
         print('prediction:   ', predictions[i][0])
         print('\n')
-        print('difference:   ', difference(values[i], predictions[i][0]), "%")
+        print('difference:   ', difference_, "%")
+
+        if abs(difference_) < smallest:
+                smallest = abs(difference_)
+        elif abs(difference_) > largest:
+                largest = abs(difference_)
+
+        total += abs(difference_)
+        itterations += 1
 
         print('\n')
         print(X_save.iloc[[i]])
         print('\n')
+
+print("\n\n\nRESULTS: ")
+print("Average Difference:  ", round(total / itterations, 2), "% \n")
+print("Largest Difference:  ", round(largest, 2), "%")
+print("Smallest Difference: ", round(smallest, 2), "%\n\n\n")

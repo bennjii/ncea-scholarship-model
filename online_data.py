@@ -83,7 +83,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, rando
 # set the model to tensorflow sequential
 model = keras.Sequential([
         Dense(20, activation=tf.nn.relu),
-        Dense(5)
+        Dense(10)
 ])
 
 # Optimisation
@@ -107,6 +107,9 @@ early_stop = EarlyStopping(monitor = 'loss', patience = 5)
 
 # fit the model and start epochs
 model.fit(x = X_train, y = y_train.values,  epochs = 400, callbacks = [early_stop], validation_split = 0.2, batch_size = 64) #, validation_data = (X_test, y_test.values), batch_size = 128, epochs = 400, verbose=1, validation_split = 0.3, callbacks = [early_stop]
+
+import tensorflowjs as tfjs
+tfjs.converters.save_keras_model(model, 'model__')
 
 # save model
 model.save('hpp.h5') 

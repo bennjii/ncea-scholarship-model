@@ -12,10 +12,10 @@ import csv
 FILE_LOCATION = "./data/test/specific/adresses.csv"
 #FILE_LOCATION = "./data/test/remuera/adresses.csv"
 
-SALES_LOCATION = './data/test/specific/data_.csv'
+SALES_LOCATION = './data/test/specific/data_2.csv'
 #SALES_LOCATION = "./data/test/remuera/sales.csv"
 
-OUTPUT_LOCATION = './data/test/specific/output_1.csv'
+OUTPUT_LOCATION = './data/test/specific/output_2.csv'
 #OUTPUT_LOCATION = './data/test/remuera/output_1.csv'
 
 df = pd.read_csv(FILE_LOCATION) 

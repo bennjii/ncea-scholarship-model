@@ -57,6 +57,8 @@ model = tf.keras.models.load_model('hpp.h5')
 predictions = model.predict(X_test)
 values = y_test.values
 
+predictions.plot(x='predictions', y='actual')
+
 #print(predictions)
 
 total = 0
